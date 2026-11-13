@@ -1,0 +1,18 @@
+# Requires an ingress controller (e.g. ingress-nginx). Add "127.0.0.1 product.local" to your hosts file for local clusters.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: product-service
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: product.local
+      http:
+        paths:
+          - path: /api/v1/products
+            pathType: Prefix
+            backend:
+              service:
+                name: product-service
+                port:
+                  name: http
